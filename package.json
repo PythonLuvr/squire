@@ -30,7 +30,8 @@
     "test:coverage": "node scripts/check-coverage.mjs",
     "lint:em-dashes": "node scripts/check-em-dashes.mjs",
     "lint:sanity": "node scripts/check-sanity.mjs",
-    "lint": "npm run lint:em-dashes && npm run lint:sanity",
+    "lint:no-openwar": "node scripts/check-no-openwar-imports.mjs",
+    "lint": "npm run lint:em-dashes && npm run lint:sanity && npm run lint:no-openwar",
     "check": "npm run lint && npm run build && npm run test",
     "check:strict": "npm run lint && npm run build && npm run test:coverage"
   },

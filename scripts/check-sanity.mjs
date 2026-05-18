@@ -29,7 +29,16 @@ const PATTERNS = [
   {
     name: "email",
     regex: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g,
-    allow: ["noreply@anthropic.com", "noreply@github.com"],
+    allow: ["noreply@anthropic.com", "noreply@github.com", "ejredd2007@gmail.com"],
+  },
+  {
+    name: "ej_identifier",
+    // Case-insensitive substring matches against a fixed list of internal-only identifiers.
+    // These tokens should NEVER appear in shipped Squire files. They are not sensitive in
+    // isolation, but their presence in a public OSS repo indicates leakage from internal
+    // projects, client briefs, or memory.
+    regex: /\b(mscmu|viralventures|magnific|war-room-private|sema-bridge|fanward|nexford|wesam|ej-brain|ejbrain|contabo|ej-voice|hyperframes|semaclaw|openclaw)\b/gi,
+    allow: [],
   },
 ];
 

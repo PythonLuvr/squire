@@ -3,3 +3,19 @@ dist/
 coverage/
 *.log
 .DS_Store
+
+# Local secrets and state
+.env
+.env.*
+!.env.example
+*.cookies.json
+*.local.json
+
+# Editor / OS
+.vscode/
+.idea/
+Thumbs.db
+
+# Test caches and local fixture overrides
+.cache/
+tests/fixtures/**/*.local.*

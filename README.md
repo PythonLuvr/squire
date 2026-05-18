@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/PythonLuvr/squire/main/assets/logo.png" alt="Squire logo" width="180">
+  <img src="https://raw.githubusercontent.com/PythonLuvr/squire/main/assets/logo-transparent.png" alt="Squire logo" width="180">
 </p>
 
 <h1 align="center">Squire</h1>

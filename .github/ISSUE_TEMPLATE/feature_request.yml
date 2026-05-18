@@ -1,0 +1,32 @@
+name: Feature request
+description: Suggest an addition or change to Squire.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing, please remember the v1.x line is API-frozen. Additive changes are fine; renames, removals, or changes to existing event-union shapes wait for v2.0.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: Describe the use case, not the proposed solution. "I am building X, and Squire makes step Y harder than it needs to be."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How you would like Squire to change. API sketch welcome.
+      render: ts
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Workarounds you tried, custom adapters you wrote, other libraries you evaluated.
+  - type: checkboxes
+    id: additive
+    attributes:
+      label: Is this additive?
+      options:
+        - label: My proposal is additive (new types, new event variants, new options). It does not break the existing v1.x API.

@@ -1,0 +1,64 @@
+name: Bug report
+description: Something is broken or behaves unexpectedly.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear, concise description of the bug.
+      placeholder: When I call `start()` with a `.cmd` binary on Windows, ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: Smallest Squire snippet that reproduces the bug. Include the binary you are spawning and any relevant options.
+      render: ts
+    validations:
+      required: true
+  - type: input
+    id: squire-version
+    attributes:
+      label: Squire version
+      description: Output of `npm ls @pythonluvr/squire`
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: node-version
+    attributes:
+      label: Node version
+      placeholder: v22.11.0
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Linux
+        - macOS
+        - Windows
+        - Other (describe below)
+    validations:
+      required: true
+  - type: input
+    id: cli-name
+    attributes:
+      label: Child CLI (if relevant)
+      description: Which binary Squire was spawning. Include version if a specific CLI version matters.
+      placeholder: claude 0.4.2 / codex 0.7.0 / gemini 0.1.5 / custom
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / error output
+      description: Any stderr, error events, or stack traces. Strip secrets first.
+      render: shell

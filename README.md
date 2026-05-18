@@ -5,7 +5,7 @@
 <h1 align="center">Squire</h1>
 
 <p align="center">
-  General-purpose runtime for spawning CLI AI agents (Claude Code, Codex, Gemini CLI) as subprocesses with structured event streaming, MCP tool forwarding, and permission auto-setup.
+  Spawn Claude Code, Codex, and Gemini CLI from your Node app. Typed events, MCP forwarding, and permission setup included.
 </p>
 
 <p align="center">
@@ -13,6 +13,12 @@
   <a href="https://github.com/PythonLuvr/squire/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/@pythonluvr/squire.svg" alt="MIT license"></a>
   <img src="https://img.shields.io/badge/node-%3E%3D20-brightgreen" alt="Node 20+">
 </p>
+
+If you've spawned `claude`, `codex`, or `gemini` from a Node app, you know what you signed up for. Windows `.cmd` shim quirks. Hand-parsing stdout. Writing MCP config files to disk. Getting Claude Code to actually let your MCP tools through its permission gate. Then doing it all again the next time you add a CLI to the mix.
+
+Squire is the runtime layer that handles that. Give it a binary and a prompt; you get back a typed event stream, MCP forwarding that works, and permission setup that doesn't need babysitting. Spawn one agent or bridge several from the same Node process. Cross-platform, zero runtime dependencies, MIT.
+
+It's a tool, not a framework. Squire doesn't have opinions about how you structure your agent loop, what you log, or which CLI is "best." It hands you the primitives and stays out of the way.
 
 ```bash
 npm install @pythonluvr/squire

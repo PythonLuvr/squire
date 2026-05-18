@@ -1,6 +1,18 @@
-# Squire
+<p align="center">
+  <img src="https://raw.githubusercontent.com/PythonLuvr/squire/main/assets/logo.png" alt="Squire logo" width="180">
+</p>
 
-General-purpose runtime for spawning CLI AI agents (Claude Code, Codex, Gemini CLI) as subprocesses with structured event streaming, MCP tool forwarding, and permission auto-setup.
+<h1 align="center">Squire</h1>
+
+<p align="center">
+  General-purpose runtime for spawning CLI AI agents (Claude Code, Codex, Gemini CLI) as subprocesses with structured event streaming, MCP tool forwarding, and permission auto-setup.
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/@pythonluvr/squire"><img src="https://img.shields.io/npm/v/@pythonluvr/squire.svg" alt="npm"></a>
+  <a href="https://github.com/PythonLuvr/squire/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/@pythonluvr/squire.svg" alt="MIT license"></a>
+  <img src="https://img.shields.io/badge/node-%3E%3D20-brightgreen" alt="Node 20+">
+</p>
 
 ```bash
 npm install @pythonluvr/squire

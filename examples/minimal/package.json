@@ -1,0 +1,15 @@
+{
+  "name": "squire-example-minimal",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "tsx index.ts"
+  },
+  "dependencies": {
+    "@pythonluvr/squire": "^1.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.16.0"
+  }
+}

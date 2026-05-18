@@ -177,6 +177,15 @@ registerSquireAdapter(myAdapter)
 new Squire({ binary: 'codex', adapter: 'codex-json' })
 ```
 
+## Examples
+
+Two runnable example apps live in [`examples/`](examples/):
+
+- **[`examples/minimal`](examples/minimal)**: the smallest possible Squire app. Spawns Claude Code, sends one prompt, prints streamed text deltas. Start here.
+- **[`examples/bridge-multi-cli`](examples/bridge-multi-cli)**: spawns Claude Code and Gemini CLI sequentially in the same Node process and pipes the first reply into the second prompt. Shows the multi-CLI bridging differentiator end to end.
+
+Each example is standalone with its own `package.json`; `cd` into the directory and run `npm install && npm start`.
+
 ## Example consumers
 
 - **[OpenWar](https://github.com/PythonLuvr/openwar)** is a phase-gated agent runtime. It uses Squire under the hood for its `cli-bridge` adapter, layering a phase machine, deterministic detectors, and brief/trace persistence on top.

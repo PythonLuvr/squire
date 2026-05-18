@@ -9,6 +9,10 @@
 </p>
 
 <p align="center">
+  <em>Powering <a href="https://github.com/PythonLuvr/openwar">OpenWar</a> and counting.</em>
+</p>
+
+<p align="center">
   <a href="https://www.npmjs.com/package/@pythonluvr/squire"><img src="https://img.shields.io/npm/v/@pythonluvr/squire.svg" alt="npm"></a>
   <a href="https://github.com/PythonLuvr/squire/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/@pythonluvr/squire.svg" alt="MIT license"></a>
   <img src="https://img.shields.io/badge/node-%3E%3D20-brightgreen" alt="Node 20+">

@@ -24,7 +24,7 @@ Squire is the runtime layer that handles that. Give it a binary and a prompt; yo
 
 It's a tool, not a framework. Squire doesn't have opinions about how you structure your agent loop, what you log, or which CLI is "best." It hands you the primitives and stays out of the way.
 
-Bonus most people miss: the CLIs Squire wraps auth through your subscription, not your API key. Claude Code uses your Claude Code OAuth. Gemini CLI uses your Google AI account. Spawn them through Squire and your Node app inherits that. If you've been burning API tokens at retail rate while sitting on a perfectly good $20/mo subscription, this is the workaround.
+Bonus most people miss: the CLIs Squire wraps auth through your subscription, not your API key. Claude Code uses your Claude Code OAuth. Gemini CLI uses your Google AI account. Squire lets your Node app inherit that subscription auth instead of burning API tokens at retail. The $20/mo seat your team already pays for can now power the apps you're building.
 
 ```bash
 npm install @pythonluvr/squire

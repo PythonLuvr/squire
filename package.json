@@ -1,0 +1,67 @@
+{
+  "name": "@pythonluvr/squire",
+  "version": "1.0.0",
+  "description": "General-purpose runtime for spawning CLI AI agents (Claude Code, Codex, Gemini CLI) as subprocesses with structured event streaming, MCP tool forwarding, and permission auto-setup.",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./adapters": {
+      "types": "./dist/adapters/index.d.ts",
+      "import": "./dist/adapters/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "docs"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "node -e \"import('node:fs').then(f=>f.rmSync('dist',{recursive:true,force:true}))\"",
+    "prepublishOnly": "npm run clean && npm run build",
+    "test": "node scripts/run-tests.mjs",
+    "test:coverage": "node scripts/check-coverage.mjs",
+    "lint:em-dashes": "node scripts/check-em-dashes.mjs",
+    "lint:sanity": "node scripts/check-sanity.mjs",
+    "lint": "npm run lint:em-dashes && npm run lint:sanity",
+    "check": "npm run lint && npm run build && npm run test",
+    "check:strict": "npm run lint && npm run build && npm run test:coverage"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.0"
+  },
+  "keywords": [
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "cli",
+    "subprocess",
+    "mcp",
+    "typescript",
+    "ai-agents",
+    "agent-runtime",
+    "anthropic",
+    "openai",
+    "nodejs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pythonluvr/squire.git"
+  },
+  "homepage": "https://github.com/pythonluvr/squire#readme",
+  "bugs": {
+    "url": "https://github.com/pythonluvr/squire/issues"
+  }
+}

@@ -50,7 +50,7 @@ await squire.start('Hello, agent.')
 ## What it does
 
 - **Subprocess spawn.** Cross-platform `child_process` wrapper with Windows `.cmd` / `.bat` / extensionless-binary handling baked in. Works the same way on macOS and Linux.
-- **Structured event streaming.** A typed `SquireEvent` union (`stdout`, `stderr`, `text_delta`, `message_start`, `message_stop`, `error`) replaces ad-hoc stdio parsing. v1.0 ships the built-in `text-stream` adapter; per-CLI parsers (Claude Code JSON streaming mode, Codex, Gemini CLI) land in v1.x.
+- **Structured event streaming.** A typed `SquireEvent` union (`stdout`, `stderr`, `text_delta`, `tool_call`, `tool_result`, `thinking_delta`, `usage`, `message_start`, `message_stop`, `error`) replaces ad-hoc stdio parsing. v1.1 ships dedicated parsers for Claude Code (`adapter: 'claude-code'`) and Gemini CLI (`adapter: 'gemini-cli'`) that emit semantic events; the built-in `text-stream` adapter remains the default fallback for any other CLI.
 - **MCP forwarding.** Pass `mcp.servers` or a pre-built `mcp.configPath` and Squire wires the child's `--mcp-config` flag for you. The temp config file is cleaned up on `stop()`.
 - **Permission auto-setup.** For Claude Code, `autoSetup.claudeCode` merges `allowedTools` patterns into `~/.claude/settings.json` atomically (preserving everything else in the file). Idempotent.
 
@@ -60,12 +60,12 @@ v1.0 is binary-agnostic. Any CLI that accepts a prompt on stdin and emits output
 
 | CLI | Notes |
 | --- | --- |
-| [Claude Code](https://docs.anthropic.com/claude/docs/claude-code) | `binary: 'claude'`. Pair with `autoSetup.claudeCode` for MCP-tool permissions. |
-| [OpenAI Codex CLI](https://github.com/openai/codex) | `binary: 'codex'`. Honors `--mcp-config`. |
-| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | `binary: 'gemini'`. Honors `--mcp-config`. |
-| Custom | Any binary on PATH or absolute path. |
+| [Claude Code](https://docs.anthropic.com/claude/docs/claude-code) | `binary: 'claude'`, `adapter: 'claude-code'`. Pair with `autoSetup.claudeCode` for MCP-tool permissions. Emits `text_delta`, `thinking_delta`, `tool_call`, `tool_result`, `usage`. |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | `binary: 'gemini'`, `adapter: 'gemini-cli'`. Honors `--mcp-config`. Emits `text_delta`, `tool_call`, `tool_result`, `usage`. |
+| [OpenAI Codex CLI](https://github.com/openai/codex) | `binary: 'codex'`. Honors `--mcp-config`. Use the default `text-stream` adapter; a dedicated `codex` adapter is planned for a follow-up release. |
+| Custom | Any binary on PATH or absolute path. Use `text-stream` or register your own `SquireAdapter`. |
 
-A richer per-CLI event-extraction layer (`tool_call` / `tool_result` events from Claude Code's JSON streaming mode, equivalents for Codex and Gemini) is on the v1.x roadmap. The `SquireAdapter` interface is exported today so consumers can ship their own parsers.
+The dedicated adapters parse each vendor's stream-json output line-by-line and fall back to raw `stdout` events for any line they cannot interpret, so a vendor format tweak degrades gracefully instead of crashing. The `SquireAdapter` interface is exported for callers who want to ship custom parsers.
 
 ## Cross-platform
 

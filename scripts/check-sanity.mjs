@@ -13,7 +13,7 @@ import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = process.cwd();
-const TARGETS = [".md", ".ts", ".mts", ".cts", ".mjs", ".json", ".yml", ".yaml"];
+const TARGETS = [".md", ".ts", ".mts", ".cts", ".mjs", ".json", ".jsonl", ".yml", ".yaml"];
 const SKIP = new Set(["node_modules", "dist", ".git", "coverage"]);
 const SELF = relative(ROOT, fileURLToPath(import.meta.url));
 

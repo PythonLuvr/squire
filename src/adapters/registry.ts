@@ -6,10 +6,14 @@
 
 import type { SquireAdapter } from "./types.js";
 import { textStreamAdapter } from "./text-stream.js";
+import { claudeCodeAdapter } from "./claude-code.js";
+import { geminiCliAdapter } from "./gemini-cli.js";
 import { SquireError } from "../errors.js";
 
 const registry = new Map<string, SquireAdapter>();
 registry.set(textStreamAdapter.name, textStreamAdapter);
+registry.set(claudeCodeAdapter.name, claudeCodeAdapter);
+registry.set(geminiCliAdapter.name, geminiCliAdapter);
 
 export function registerSquireAdapter(adapter: SquireAdapter): void {
   if (!adapter || typeof adapter.name !== "string" || adapter.name.length === 0) {

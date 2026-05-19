@@ -66,9 +66,14 @@ type SquireEvent =
   | { type: 'message_start'; pid: number }
   | { type: 'message_stop'; code: number | null; signal: NodeJS.Signals | null; assembled: string }
   | { type: 'error'; error: Error; reason?: 'spawn'|'timeout'|'exit'|'adapter'|'aborted'; stderrTail?: string }
+  // Added in v1.1 (emitted by per-CLI adapters; never by `text-stream`):
+  | { type: 'tool_call'; id: string; name: string; input: unknown }
+  | { type: 'tool_result'; id: string; output: unknown; isError?: boolean }
+  | { type: 'thinking_delta'; delta: string }
+  | { type: 'usage'; inputTokens?: number; outputTokens?: number; cacheReadTokens?: number; cacheWriteTokens?: number }
 ```
 
-`text_delta` is emitted by the configured adapter. For the built-in `text-stream` adapter it duplicates `stdout`. For per-CLI adapters (v1.x), `text_delta` is the assistant-visible text only and tool I/O is routed through other variants (reserved for v1.x).
+`text_delta` is emitted by the configured adapter. For the built-in `text-stream` adapter it duplicates `stdout`. The v1.1 per-CLI adapters (`claude-code`, `gemini-cli`) emit `text_delta` only for assistant-visible text and route tool I/O through `tool_call` / `tool_result`, internal reasoning through `thinking_delta`, and token counters through `usage`. Custom adapters may emit any subset; consumers should narrow on `event.type` and ignore variants they don't care about.
 
 ## `SquireOptions`
 

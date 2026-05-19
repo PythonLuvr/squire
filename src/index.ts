@@ -24,6 +24,10 @@ export type {
   SquireMessageStartEvent,
   SquireMessageStopEvent,
   SquireErrorEvent,
+  SquireToolCallEvent,
+  SquireToolResultEvent,
+  SquireThinkingDeltaEvent,
+  SquireUsageEvent,
 } from "./events.js";
 
 export {
@@ -38,6 +42,8 @@ export type {
   SquireAdapterContext,
 } from "./adapters/types.js";
 export { textStreamAdapter } from "./adapters/text-stream.js";
+export { claudeCodeAdapter } from "./adapters/claude-code.js";
+export { geminiCliAdapter } from "./adapters/gemini-cli.js";
 export {
   registerSquireAdapter,
   getSquireAdapter,

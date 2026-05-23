@@ -8,10 +8,16 @@ The v1.0 public API surface (everything exported from `src/index.ts`) is frozen.
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-05-23
+
+### Added
+- `SquireEvent` variant `session_id` emitted by the `claude-code` adapter (and `gemini-cli` adapter when its `init` line carries one) when the CLI's initial system message surfaces a session identifier. Lets callers capture a resumable session id without parsing stdout themselves; pass it back via `--resume <id>` on the next turn to continue the same conversation.
+- Adapter test coverage asserting the new event is emitted exactly once with the parsed id and originating adapter name.
+
 ## [1.2.0] - 2026-05-23
 
 ### Added
-- `SquireOptions.keepStdinOpen`: when set, `start()` writes the initial prompt but does NOT close the child's stdin afterwards, so the host can deliver follow-up messages via `.send()` (e.g. a `tool_result` for a CLI that asked the user a question mid-turn). Off by default — existing one-shot callers are unchanged. Pairs with `--input-format stream-json` on the Claude Code CLI; other binaries' contracts vary.
+- `SquireOptions.keepStdinOpen`: when set, `start()` writes the initial prompt but does NOT close the child's stdin afterwards, so the host can deliver follow-up messages via `.send()` (e.g. a `tool_result` for a CLI that asked the user a question mid-turn). Off by default; existing one-shot callers are unchanged. Pairs with `--input-format stream-json` on the Claude Code CLI; other binaries' contracts vary.
 - Test coverage for the new option: `keepStdinOpen: send() works after start() to deliver follow-up input`.
 
 ## [1.1.0] - 2026-05-19
@@ -57,6 +63,8 @@ The v1.0 public API surface (everything exported from `src/index.ts`) is frozen.
 - 52 tests, 96.3% line coverage on `src/`.
 - Documentation: `README.md`, `docs/api.md`, `docs/openwar-integration.md`, `docs/contributing.md`.
 
-[Unreleased]: https://github.com/PythonLuvr/squire/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/PythonLuvr/squire/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/PythonLuvr/squire/compare/v1.2.0...v1.3.0
+[1.2.0]: https://github.com/PythonLuvr/squire/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/PythonLuvr/squire/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/PythonLuvr/squire/releases/tag/v1.0.0

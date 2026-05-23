@@ -73,6 +73,14 @@ test("gemini-cli adapter: unparseable lines fall back to stdout (no crash)", () 
   assert.ok(stdoutCount >= 1);
 });
 
+test("gemini-cli adapter: emits session_id exactly once from init", () => {
+  const events = runAgainstFixture();
+  const ids = events.filter((e): e is Extract<SquireEvent, { type: "session_id" }> => e.type === "session_id");
+  assert.equal(ids.length, 1, "expected exactly one session_id event");
+  assert.equal(ids[0]!.sessionId, "00000000-0000-0000-0000-000000000002");
+  assert.equal(ids[0]!.adapter, "gemini-cli");
+});
+
 test("gemini-cli adapter: passes stderr through verbatim", () => {
   const instance = geminiCliAdapter.create({ binary: "gemini", args: [] });
   const events = instance.onStderr("warning: foo\n");

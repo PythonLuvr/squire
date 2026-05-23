@@ -115,6 +115,22 @@ export interface SquireUsageEvent {
   cacheWriteTokens?: number;
 }
 
+/**
+ * Vendor-supplied session identifier carried by the CLI's initial system
+ * message (Claude Code's `system/init` line, Gemini CLI's `init` line). Lets
+ * callers capture a resumable session id without parsing stdout themselves;
+ * pass it back to the CLI on the next turn (e.g. Claude Code's `--resume
+ * <id>`) to continue the same conversation.
+ *
+ * Emitted at most once per `start()` call, early in the stream. Skipped when
+ * the underlying CLI does not surface an id.
+ */
+export interface SquireSessionIdEvent {
+  type: "session_id";
+  sessionId: string;
+  adapter?: "claude-code" | "gemini-cli";
+}
+
 export type SquireEvent =
   | SquireStdoutEvent
   | SquireStderrEvent
@@ -125,6 +141,7 @@ export type SquireEvent =
   | SquireToolCallEvent
   | SquireToolResultEvent
   | SquireThinkingDeltaEvent
-  | SquireUsageEvent;
+  | SquireUsageEvent
+  | SquireSessionIdEvent;
 
 export type SquireEventType = SquireEvent["type"];

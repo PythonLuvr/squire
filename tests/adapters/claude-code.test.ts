@@ -82,6 +82,14 @@ test("claude-code adapter: unparseable lines fall back to stdout (no crash)", ()
   assert.ok(stdoutCount >= 1, "unparseable line should fall back to stdout");
 });
 
+test("claude-code adapter: emits session_id exactly once from system/init", () => {
+  const events = runAgainstFixture();
+  const ids = events.filter((e): e is Extract<SquireEvent, { type: "session_id" }> => e.type === "session_id");
+  assert.equal(ids.length, 1, "expected exactly one session_id event");
+  assert.equal(ids[0]!.sessionId, "00000000-0000-0000-0000-000000000001");
+  assert.equal(ids[0]!.adapter, "claude-code");
+});
+
 test("claude-code adapter: passes stderr through verbatim", () => {
   const instance = claudeCodeAdapter.create({ binary: "claude", args: [] });
   const events = instance.onStderr("warning: foo\n");

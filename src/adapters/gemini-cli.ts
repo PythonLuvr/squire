@@ -85,7 +85,10 @@ function parseLine(line: string): SquireEvent[] {
     const u = mapStats(obj.stats as GeminiStats | undefined);
     return u ? [u] : [];
   }
-  // init and unknown types are silent.
+  if (t === "init" && typeof obj.session_id === "string" && obj.session_id.length > 0) {
+    return [{ type: "session_id", sessionId: obj.session_id, adapter: "gemini-cli" }];
+  }
+  // Unknown types are silent.
   return [];
 }
 

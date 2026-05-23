@@ -96,9 +96,10 @@ function parseLine(line: string): SquireEvent[] {
   } else if (t === "result") {
     const u = mapUsage(obj.usage as UsageRaw | undefined);
     if (u) out.push(u);
+  } else if (t === "system" && obj.subtype === "init" && typeof obj.session_id === "string" && obj.session_id.length > 0) {
+    out.push({ type: "session_id", sessionId: obj.session_id, adapter: "claude-code" });
   }
-  // rate_limit_event, system/init, and any unknown type are intentionally
-  // silent: they don't map to a useful semantic event for consumers.
+  // rate_limit_event and any unknown type are intentionally silent.
   return out;
 }
 

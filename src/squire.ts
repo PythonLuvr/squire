@@ -133,10 +133,16 @@ export class Squire extends EventEmitter {
       else opts.signal.addEventListener("abort", onAbort, { once: true });
     }
 
-    // Pipe stdin
+    // Pipe stdin. When `keepStdinOpen` is set, write the initial prompt
+    // but DON'T close stdin: the host plans to deliver follow-up messages
+    // via `.send()` (e.g. a `tool_result` for a CLI that asked the user a
+    // question mid-turn). Default is one-shot: write, end, let the CLI
+    // flush and exit.
     try {
       child.stdin?.write(prompt);
-      child.stdin?.end();
+      if (!this.options.keepStdinOpen) {
+        child.stdin?.end();
+      }
     } catch {
       // EPIPE if child died before consuming stdin. Surfaces via exit handler.
     }

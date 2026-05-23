@@ -87,4 +87,15 @@ export interface SquireOptions {
    * own per-CLI output parsing.
    */
   adapter?: string;
+  /**
+   * When true, write the initial prompt to the child's stdin but do NOT
+   * close stdin afterwards. Lets the host deliver follow-up messages via
+   * `.send()` (e.g. a `tool_result` for a CLI that exposed a question to
+   * the user mid-turn). Off by default — most one-shot CLIs expect stdin
+   * to close so they can flush and exit.
+   *
+   * The target CLI must accept follow-up input. For Claude Code that is
+   * `--input-format stream-json`; for other binaries see their own docs.
+   */
+  keepStdinOpen?: boolean;
 }

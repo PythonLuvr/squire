@@ -1,6 +1,6 @@
 {
   "name": "@pythonluvr/squire",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "General-purpose runtime for spawning CLI AI agents (Claude Code, Codex, Gemini CLI) as subprocesses with structured event streaming, MCP tool forwarding, and permission auto-setup.",
   "license": "MIT",
   "type": "module",

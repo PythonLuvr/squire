@@ -8,6 +8,12 @@ The v1.0 public API surface (everything exported from `src/index.ts`) is frozen.
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-05-23
+
+### Added
+- `SquireOptions.keepStdinOpen`: when set, `start()` writes the initial prompt but does NOT close the child's stdin afterwards, so the host can deliver follow-up messages via `.send()` (e.g. a `tool_result` for a CLI that asked the user a question mid-turn). Off by default — existing one-shot callers are unchanged. Pairs with `--input-format stream-json` on the Claude Code CLI; other binaries' contracts vary.
+- Test coverage for the new option: `keepStdinOpen: send() works after start() to deliver follow-up input`.
+
 ## [1.1.0] - 2026-05-19
 
 ### Added

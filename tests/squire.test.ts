@@ -222,6 +222,45 @@ test("prompt passes through stdin to the child", async () => {
   }
 });
 
+test("keepStdinOpen: send() works after start() to deliver follow-up input", async () => {
+  // Child reads stdin lines, echoes each prefixed, exits on a sentinel line.
+  // Without keepStdinOpen the child would see EOF after the initial prompt
+  // and the .send() below would throw.
+  const code = [
+    "process.stdin.setEncoding('utf8');",
+    "let buf='';",
+    "process.stdin.on('data', c => {",
+    "  buf += c;",
+    "  let i;",
+    "  while ((i = buf.indexOf('\\n')) !== -1) {",
+    "    const line = buf.slice(0, i); buf = buf.slice(i + 1);",
+    "    if (line === 'BYE') { process.stdout.write('done'); process.exit(0); }",
+    "    process.stdout.write('got:' + line + '|');",
+    "  }",
+    "});",
+  ].join("");
+  const squire = new Squire({
+    binary: process.execPath,
+    args: ["-e", code],
+    keepStdinOpen: true,
+  });
+  const events: SquireEvent[] = [];
+  squire.on("event", (e: SquireEvent) => events.push(e));
+  // Start with the initial line; do NOT await yet, the child stays alive
+  // waiting for more stdin.
+  const done = squire.start("hello\n");
+  // Give the child a tick to register the data handler before we send more.
+  await new Promise((r) => setTimeout(r, 50));
+  await squire.send("world\n");
+  await squire.send("BYE\n");
+  await done;
+  const stop = events.find((e) => e.type === "message_stop");
+  assert.ok(stop);
+  if (stop?.type === "message_stop") {
+    assert.equal(stop.assembled, "got:hello|got:world|done");
+  }
+});
+
 test("autoSetup: writeSettings=false skips the merge", async () => {
   // No setttings file is written because writeSettings is explicitly off.
   const squire = new Squire({
